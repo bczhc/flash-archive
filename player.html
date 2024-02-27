@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Player</title>
+
+    <style>
+        body {
+            background-color: #37528c;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container"></div>
+
+<script>
+    let path = new URL(document.URL).searchParams.get("path")
+    console.log(path);
+
+    window.RufflePlayer = window.RufflePlayer || {};
+    window.RufflePlayer.config = {
+        scale: 'showAll',
+        autoplay: 'auto',
+        backgroundColor: '#37528c'
+    }
+    window.addEventListener("load", (event) => {
+        const ruffle = window.RufflePlayer.newest();
+        const player = ruffle.createPlayer();
+        player.style.width = '100vw';
+        player.style.height = '100vh';
+        const container = document.getElementById("container");
+        container.appendChild(player);
+        player.load(path);
+    });
+</script>
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+</body>
+</html>

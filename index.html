@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flash Archive</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="template" style="display: none">
+    <a href=""></a><br>
+</div>
+
+<div id="container"></div>
+
+<script>
+    window.onload = async () => {
+        let list = (await axios.get('./swf/list')).data
+            .split('\n').filter(x => x !== '');
+
+        let templateElem = document.getElementById('template');
+        let container = document.getElementById('container');
+
+        for (let path of list) {
+            let cloned = templateElem.cloneNode(true);
+            let aTag = cloned.getElementsByTagName('a')[0];
+            aTag.setAttribute('href', `./player.html?path=swf/${encodeURI(path)}`);
+            aTag.innerHTML = path
+            cloned.style.removeProperty('display');
+            container.appendChild(cloned);
+        }
+    }
+</script>
+</body>
+</html>
