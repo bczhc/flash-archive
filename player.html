@@ -3,27 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Player</title>
-
-    <style>
-        body {
-            background-color: #37528c;
-        }
-    </style>
 </head>
 <body>
 
 <div id="container"></div>
 
 <script>
-    let path = new URL(document.URL).searchParams.get("path")
+    let searchParams = new URL(document.URL).searchParams;
+    let path = searchParams.get('path');
+    let config = JSON.parse(searchParams.get('config'));
     console.log(path);
+    console.log(config);
 
     window.RufflePlayer = window.RufflePlayer || {};
-    window.RufflePlayer.config = {
-        scale: 'showAll',
-        autoplay: 'auto',
-        backgroundColor: '#37528c'
-    }
+
+    document.body.style.backgroundColor = config['page']['backgroundColor'];
+    window.RufflePlayer.config = config['ruffle'];
+
     window.addEventListener("load", (event) => {
         const ruffle = window.RufflePlayer.newest();
         const player = ruffle.createPlayer();

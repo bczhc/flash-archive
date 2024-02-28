@@ -7,10 +7,23 @@
 </head>
 <body>
 <div id="template" style="display: none">
-    <a href=""></a><br>
+    <a href="#"></a><br>
 </div>
 
 <div id="container"></div>
+
+<label for="config-ta">Config<br></label><textarea name="config" id="config-ta" cols="50" rows="30">
+{
+  "page": {
+    "backgroundColor": "#37528c"
+  },
+  "ruffle": {
+    "scale": "showAll",
+    "autoplay": "auto",
+    "backgroundColor": null
+  }
+}
+</textarea>
 
 <script>
     window.onload = async () => {
@@ -23,7 +36,10 @@
         for (let path of list) {
             let cloned = templateElem.cloneNode(true);
             let aTag = cloned.getElementsByTagName('a')[0];
-            aTag.setAttribute('href', `./player.html?path=swf/${encodeURIComponent(path)}`);
+            aTag.onclick = () => {
+                let configText = document.getElementById('config-ta').value;
+                window.location.href = `./player.html?path=swf/${encodeURIComponent(path)}&config=${encodeURIComponent(configText)}`;
+            };
             aTag.innerHTML = path
             cloned.style.removeProperty('display');
             container.appendChild(cloned);
