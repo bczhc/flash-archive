@@ -23,7 +23,7 @@
         for (let path of list) {
             let cloned = templateElem.cloneNode(true);
             let aTag = cloned.getElementsByTagName('a')[0];
-            aTag.setAttribute('href', `./player.html?path=swf/${encodeURI(path)}`);
+            aTag.setAttribute('href', `./player.html?path=swf/${encodeURIComponent(path)}`);
             aTag.innerHTML = path
             cloned.style.removeProperty('display');
             container.appendChild(cloned);
